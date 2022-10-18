@@ -3,8 +3,8 @@ export const generalConfig: GeneralConfigType = {
 	// do not touch that
     __templateVersion: '2.0.0',
 
-	name: 'tscord', // the name of your bot
-	description: '', // the description of your bot
+	name: 'discbot', // the name of your bot
+	description: 'Official Discbot Suite bot', // the description of your bot
 	defaultLocale: 'en', // default language of the bot, must be a valid locale
 	simpleCommandsPrefix: '!', // default prefix for simple command messages (old way to do commands on discord)
 	ownerId: process.env['BOT_OWNER_ID'] || '',
@@ -17,7 +17,7 @@ export const generalConfig: GeneralConfigType = {
 		gitRemoteRepo: 'https://github.com/barthofu/tscord',
 	},
 	
-	automaticUploadImagesToImgur: true, // enable or not the automatic assets upload
+	automaticUploadImagesToImgur: false, // enable or not the automatic assets upload
 
 	devs: [], // discord IDs of the devs that are working on the bot (you don't have to put the owner's id here)
 

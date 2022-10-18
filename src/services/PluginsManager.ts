@@ -74,7 +74,7 @@ export class PluginsManager {
         let translations: { [key: string]: BaseTranslation } = {}
 
         for (const locale of locales) {
-            const path = getSourceCodeLocation + "/i18n/"+locale
+            const path = getSourceCodeLocation() + "/i18n/" + locale
             if (fs.existsSync(path)) translations[locale] = (await import(path))?.default
         }
 
