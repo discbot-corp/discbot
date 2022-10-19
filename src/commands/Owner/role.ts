@@ -5,18 +5,16 @@ import { injectable } from "tsyringe"
 
 import { Discord, Slash } from "@decorators"
 import { Disabled, Guard } from "@guards"
-import { Role } from "@services"
+import { Logger, Role } from "@services"
 
 @Discord()
 @Category('Owner')
-@Guard(
-	Disabled
-)
 @injectable()
 export default class RoleCommand {
 
 	constructor(
-		private role: Role
+		private role: Role,
+		private logger: Logger
 	) {}
 
 
@@ -41,14 +39,30 @@ export default class RoleCommand {
 			.filter(role => role) as DRole[]
 		const member = await interaction.guild?.members.fetch(interaction.user.id)
 
-		await member?.roles[type](roles)
+		if (member) {
 
-		await interaction.reply({
-			content: `Rôles ${type === 'add' ? 'ajoutés' : 'supprimés'}`,
-			ephemeral: true
-		})
+			this.logger.log(
+				`[Role] ${type} roles ${roles.map(role => role.name).join(', ')} to ${member.user.username}`, 
+				'info', 
+				true
+			)
 
-		this.role.updateSelectRoleMessage()
+			await member?.roles[type](roles)
+	
+			await interaction.reply({
+				content: `Rôles ${type === 'add' ? 'ajoutés' : 'supprimés'}`,
+				ephemeral: true
+			})
+	
+			this.role.updateSelectRoleMessage()
+
+		} else {
+
+			await interaction.reply({
+				content: `Une erreur est survenue`,
+				ephemeral: true
+			})
+		}
 		
 	}
 
@@ -56,7 +70,9 @@ export default class RoleCommand {
 	@Slash({
 		name: 'role',
 	})
-	@Guard()
+	@Guard(
+		Disabled
+	)
 	async updateRoles(
 		interaction: CommandInteraction,
 		client: Client,

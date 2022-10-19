@@ -61,8 +61,6 @@ export class Role {
 
         if (message) {
 
-			console.log(message)
-
 			console.info('Message found, editing it')
 
 			await message.edit({
