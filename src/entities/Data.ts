@@ -10,7 +10,7 @@ import { CustomBaseEntity } from "./BaseEntity"
 
     maintenance: false,
     lastMaintenance: Date.now(),
-    lastStartup: Date.now()
+    lastStartup: Date.now(),
 }
 
 type DataType = keyof typeof defaultData

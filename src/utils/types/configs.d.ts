@@ -95,3 +95,14 @@ type WebsocketConfigType = {
 
     enabled: boolean
 }
+
+type RolesConfigType = {
+
+    content: string
+    roles: Array<{
+        name: string
+        roleId: string
+        description?: string
+        icon?: string
+    }>
+}
